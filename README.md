@@ -5,11 +5,11 @@ cogoo-agent
 
 COGOOがW61SAに非対応だったのが悪い。
 
-# install
+## install
 
     $bundle install
 
-# usage
+## usage
 
     $bundle exec ruby cogoo-agent.rb
 
