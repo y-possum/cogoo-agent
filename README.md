@@ -10,6 +10,7 @@ COGOOがW61SAに非対応だったのが悪い。
     $bundle install
 
 ## usage
+現状京都大学での利用が仮定されています。その他の場所で使う時はget\_bikeメソッドのspot\_id引数を変える必要があります。
 
     $bundle exec ruby cogoo-agent.rb
 
