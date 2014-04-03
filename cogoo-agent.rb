@@ -70,7 +70,7 @@ if __FILE__ == $0
   
   rent_ok = false
   if confirm
-    print 'Rent bike "#{bike['name']}"? (y/n): '
+    print "Rent bike \"#{bike["name"]}\"? (y/n): "
     rent_ok = true if /^y/.match(gets.strip)
   end
   cogoo.rent(bike) if !confirm || rent_ok
