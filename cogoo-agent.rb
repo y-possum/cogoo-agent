@@ -34,7 +34,7 @@ class CogooAgent
       res = @agent.post(RENT_URL, req_bike_data)
       rent_data = JSON.parse(res.body)
       start_time = DateTime.strptime(rent_data['start_time'].to_s+"JST", "%Y%m%d%H%M%S%Z")
-      puts "Bike name: #{rent_data['name']}"
+      puts "Bike name: #{rent_data['bicycle_name']}"
       puts start_time.strftime("Rent start: %F %T")
       puts "Password: #{rent_data['password']}"
     end
