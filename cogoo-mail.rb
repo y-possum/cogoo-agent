@@ -18,14 +18,14 @@ config = YAML.load(File.open(CONFIG_FILE).read)
 message = STDIN.read
 req_mail = Mail.read_from_string(message)
 from_address = req_mail.from.first
-subject = req_mail.subject.strip
-
-logger.debug "from: #{from_address}"
-logger.debug "subject: #{subject}"
+subject = req_mail.subject
 
 if config['mail'] == from_address
   if /^\d+$/.match(subject)
-    bike_name = subject
+    logger.debug "from: #{from_address}"
+    logger.debug "subject: #{subject}"
+
+    bike_name = subject.strip
     cogoo = CogooAgent.new
     rent_msg = ""
     begin
