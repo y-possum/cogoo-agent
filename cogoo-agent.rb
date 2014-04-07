@@ -29,11 +29,11 @@ class CogooAgent
   def rent(bike)
     if bike['is_rented']
       raise "The bicycle #{bike_name} is unavailable now."
-    else
-      req_bike_data = JSON.generate({"bicycle_id"=>bike['id']})
-      res = @agent.post(RENT_URL, req_bike_data)
-      return JSON.parse(res.body)
     end
+
+    req_bike_data = JSON.generate({"bicycle_id"=>bike['id']})
+    res = @agent.post(RENT_URL, req_bike_data)
+    return JSON.parse(res.body)
   end
 
   def logout
@@ -69,13 +69,18 @@ if __FILE__ == $0
     print "Rent bike \"#{bike["name"]}\"? (y/n): "
     rent_ok = true if /^y/.match(gets.strip)
   end
-  rent_data = cogoo.rent(bike) if !confirm || rent_ok
-  start_time = DateTime.strptime(rent_data['start_time'].to_s+"JST", "%Y%m%d%H%M%S%Z")
-  puts "Bike name: #{rent_data['bicycle_name']}"
-  puts start_time.strftime("Rent start: %F %T")
-  puts "Password: #{rent_data['password']}"
 
-  cogoo.logout
+  begin
+    if !confirm || rent_ok
+      rent_data = cogoo.rent(bike) 
+      start_time = DateTime.strptime(rent_data['start_time'].to_s+"JST", "%Y%m%d%H%M%S%Z")
+      puts "Bike name: #{rent_data['bicycle_name']}"
+      puts start_time.strftime("Rent start: %F %T")
+      puts "Password: #{rent_data['password']}"
+    end
+  ensure
+    cogoo.logout
+  end
 
 end
 
